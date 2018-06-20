@@ -181,7 +181,7 @@
 
                     <div class="form-group" style="text-align:center; padding-top:30px;">
                         <a class="btn btn-info" style=" width: 130px;" href="./management">戻る</a>
-                        <button type="submit" class="btn btn-primary" style="text-align: center; padding-left: 10px;width: 130px;" onclick="">店舗追加</button>
+                        <button type="submit" class="btn btn-primary" style="text-align: center; padding-left: 10px;width: 130px;" onclick="">マネージャー追加</button>
                     </div>
                 </form>
 
