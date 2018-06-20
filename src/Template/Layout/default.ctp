@@ -51,7 +51,7 @@
 <nav style="position: fixed;top: 0;left:0; width: 100%; z-index: 9999;" class="top-bar expanded" data-topbar role="navigation">
     <ul class="title-area large-3 medium-4 columns">
         <li class="name">
-            <h1 id="title" style="text-align: center" onclick="alert(modalOpen)"><?= $this->fetch('title') ?></h1>
+            <h1 id="title" style="text-align: center" onclick=""><?= $this->fetch('title') ?></h1>
         </li>
     </ul>
 
