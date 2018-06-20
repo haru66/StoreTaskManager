@@ -41,6 +41,8 @@
                 var name = $('#add-dep-name').val();
                 var parent = $('#add-dep-parent').val();
 
+                if(!confirm('部門 '+name+' を追加してもよろしいですか？')) return false;
+
                 var data = {
                     action : 'add',
                     name : name,
@@ -77,6 +79,8 @@
                 var name = $('#edit-dep-name').val();
                 var id = $('#edit-dep-id').val();
 
+                if(!confirm('部門名を '+name+' に変更してもよろしいですか？')) return false;
+
                 var data = {
                     action : 'edit-name',
                     name : name,
@@ -101,6 +105,21 @@
 
                 return false;
             });
+
+
+            $('#add-dep-name').keypress(function(e) {
+                if(e.which == 13) {
+                    $('#dep-add-submit').click();
+                    return false;
+                }
+            });
+
+            $('#edit-dep-name').keypress(function(e) {
+                if(e.which == 13) {
+                    $('#edit-dep-name-submit').click();
+                    return false;
+                }
+            });
         });
 
 
@@ -109,19 +128,30 @@
             $('#error-name-empty').hide();
             $('#add-dep-parent').val(parent);
 
+            setFocus('#add-dep-name');
+
             var appendTo = "メイン部門";
             if(parent != 0) appendTo = $('#dep-'+parent+'-draw').text();
             $('#append-to').text('追加先：' + appendTo);
         }
 
+
         function showDepEdit(id){
             $('#edit-dep-name').val('');
+            setFocus('#edit-dep-name');
             $('#title-edit-dep-name').text($('#dep-'+id).attr('dep-name'));
             $('#edit-dep-id').val(id);
         }
 
         function showDepDelete(){
 
+        }
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
         }
 
         function changeIndex(replace, target, main = 0){

@@ -432,6 +432,8 @@ if($this->request->getQuery('forceFlag')){
     function showTaskEdit(id = -1, dep =-1){
         modalOpen = true;
 
+        setFocus('#task-edit-caption');
+
         $('#worker-select-div').hide();
         $('#task-edit-worker-checkbox' + userId).attr('onclick', 'return false;');
 
@@ -721,6 +723,8 @@ if($this->request->getQuery('forceFlag')){
     function showMsgEdit(id = -1, dep = 0){
         modalOpen = true;
 
+        setFocus('#msg-detail');
+
         if(id == -1) {
             $('[id="msg-edit-title"]').text("翌日への引き継ぎ追加");
             $('[id="msg-edit-submit"]').text("追  加");
@@ -752,6 +756,8 @@ if($this->request->getQuery('forceFlag')){
 
     function showDailyTaskEdit(id = -1, dep = 0){
         modalOpen = true;
+
+        setFocus('#dailytask-edit-caption');
 
         if(id == -1) {
             $('[id="dailytask-edit-title"]').text("今日やったこと追加");
@@ -852,6 +858,13 @@ if($this->request->getQuery('forceFlag')){
 
             $('#toggle-view-btn').text('担当部門のみ表示');
         }
+    }
+
+    function setFocus(sel){
+        setTimeout(function(){
+            //webkit,geckoにはfocus()にsetTimeoutが必要
+            $(sel).focus();//入力欄にフォーカス
+        },200);
     }
 
 </script>

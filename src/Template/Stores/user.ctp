@@ -432,7 +432,8 @@
 
 
         function nameEdit(){
-            $('#edit-name').val('');
+            $('#edit-name').val('').focus();
+            setFocus('#edit-name');
             $('#error-name-empty').hide();
             $('#name-edit-id').val(nowSelectId);
 
@@ -443,6 +444,13 @@
             $('#error-password-empty').hide();
             $('#password-edit-id').val(nowSelectId);
 
+        }
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
         }
 
 
@@ -634,7 +642,7 @@ foreach($users as $user) {
     <div class="form-control">
 
         <div class="" style="padding-bottom: 10px;padding-top: 8px;">
-            <label for="department-list-f">部門担当：</label><span id="error-dep-empty-f" style="display:none; color:red; font-size: 13px;">最低1部門は選択してください</span>
+            <label for="department-list-f">担当部門：</label><span id="error-dep-empty-f" style="display:none; color:red; font-size: 13px;">最低1部門は選択してください</span>
             <input type="button" class="btn btn-sm btn-info form-inline" style="width:130px;margin-right:10px;float: right" id="dep-f-toggle-btn" value="すべて展開">
         </div>
         <div id="department-list-f">
@@ -908,7 +916,7 @@ foreach($users as $user) {
 
             <div class="form-group" style="padding-top:30px;">
                 <button class="form-control btn btn-info" style=" width: 130px;" onclick="history.back()">戻る</button>
-                <button class="form-control btn btn-primary modaal" href="#modaal-user-add-form" style="text-align: center; padding-left: 10px;width: 130px;" onclick="">ユーザー追加</button>
+                <button class="form-control btn btn-primary modaal" href="#modaal-user-add-form" style="text-align: center; padding-left: 10px;width: 130px;" onclick="setFocus('#add-user-name');">ユーザー追加</button>
             </div>
 
         </div>

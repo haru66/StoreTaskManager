@@ -33,6 +33,11 @@
 
     <script>
         $(function(){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $('#oldpassword').focus();//入力欄にフォーカス
+            },200);
+
             $('.modaal-control-panel').modaal({
                 animation_speed: 50,
                 width: 450,
@@ -87,6 +92,9 @@
 
                     return true;
                 }
+
+
+
 
 
                 /*if(confirm('変更してもよろしいですか？')){

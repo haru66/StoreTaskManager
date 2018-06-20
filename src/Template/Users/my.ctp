@@ -192,7 +192,7 @@
 
     </div>
 
-    <p><h4 onclick="$('#edit-password-div').toggle('fast')" style="cursor:pointer;text-decoration:underline;color:royalblue;text-align:center; padding-top: 25px;">パスワード変更</h4></p>
+    <p><h4 onclick="$('#edit-password-div').toggle('fast');$('#edit-password').focus()" style="cursor:pointer;text-decoration:underline;color:royalblue;text-align:center; padding-top: 25px;">パスワード変更</h4></p>
 
         <div class="form-group form-control" style="display: none;" id="edit-password-div">
 

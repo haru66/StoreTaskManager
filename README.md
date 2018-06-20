@@ -49,5 +49,5 @@ MIT License
 
 ## Author
 
-[stack@haru66] (https://github.com/haru66)
+[stack@haru66] (https://github.com/haru66)<br>
 [mail] (haru66g@gmail.com)
