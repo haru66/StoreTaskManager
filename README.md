@@ -8,10 +8,10 @@ StoreTaskManager is very simply task management tool for stores.
 ## Description
 
 This is include these features:<br>
-    * *Task management* **(Of course!)**<br>
-    * *Store management*<br>
+* *Task management* **(Of course!)**<br>
+* *Store management*<br>
         - Multiple store management<br>
-    * *Staff management*<br>
+* *Staff management*<br>
         - Store staff or Manager<br>
         - Department management
 
