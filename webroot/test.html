@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/StoreTaskManager/css/bootstrap.css"/>    <script src="/StoreTaskManager/js/jquery-2.2.4.min.js"></script>
+    <script src="/StoreTaskManager/js/modaal.js"></script>
+    <script src="/StoreTaskManager/js/bootstrap-datepicker.min.js"></script>
+    <script src="/StoreTaskManager/js/bootstrap-datepicker.ja.min.js"></script>
+    <link rel="stylesheet" href="/StoreTaskManager/css/bootstrap-datepicker3.min.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<script>
+    $(function() {
+        $(".datepicker").datepicker({
+            maxViewMode: 2,
+            todayBtn: "linked",
+            language: "ja",
+            daysOfWeekHighlighted: "0,6",
+            autoclose: true,
+            todayHighlight: true,
+            startDate: Date.parse("2018-05-20")
+        });
+    });
+</script>
+<body>
+<input type="text" class="datepicker">
+</body>
+</html>
