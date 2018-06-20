@@ -27,11 +27,16 @@ MySQL or SQlite3
 2. Edit configuration file.
 
     You need to edit database setting.
-    file: ROOT/config/app.php
+    file: config/app.php
 
     Supported database is MySQL and SQLite.
 
-3. Setting your store.
+4. Initialize database
+
+    MySQL : Excute db/mysql_db_init.sql
+    SQLite: Copy stm_org.sqlite and rename to stm.sqlite
+
+5. Setting your store.
 
     Access to root directory.
     Choose '店舗管理' and enter password to login. (Default password: password)
