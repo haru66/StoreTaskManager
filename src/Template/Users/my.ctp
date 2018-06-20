@@ -224,12 +224,12 @@
                 <!--p><a class="btn btn-primary btn-lg form-control" href="password">パスワード設定</a></p-->
 
                 <label for="use-password-setting">現在の設定：</label>
-                <p id="use-password-setting" class="form-control">ログインにパスワードを<span style="font-weight: bold;">使用<?= $usepw ?></span></p>
+                <p id="use-password-setting" class="form-control">ログインにパスワードを<span style="font-weight: bold;">要求<?= $usepw ?></span></p>
 
 
 
 
-                <input type="submit" id="mode-change-submit" class="form-control btn btn-primary btn-group-lg" value="パスワードを使用<?= $usepw == "する" ? "しない" : "する" ?>ように変更">
+                <input type="submit" id="mode-change-submit" class="form-control btn btn-primary btn-group-lg" value="パスワードを要求<?= $usepw == "する" ? "しない" : "する" ?>ように変更">
 
 
         </div>
