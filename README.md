@@ -1,51 +1,45 @@
-# CakePHP Application Skeleton
+StoreTaskManager
+====
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
+StoreTaskManager is very simply task management tool for stores.
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
+## Description
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+This is include these features:
+    Task management (Of course!)
+    Store management
+        Multiple store management
+    Staff management
+        Store staff or Manager
+        Department management
 
-## Installation
+## Requirement
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+PHP 7 later
+MySQL or SQlite3
 
-If Composer is installed globally, run
+## Install
 
-```bash
-composer create-project --prefer-dist cakephp/app
-```
+1. Copy all files to your web root directory.
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+2. Edit configuration file.
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
+    You need to edit database setting.
+    file: ROOT/config/app.php
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+    Supported database is MySQL and SQLite.
 
-```bash
-bin/cake server -p 8765
-```
+3. Setting your store.
 
-Then visit `http://localhost:8765` to see the welcome page.
+    Access to root directory.
+    Choose '店舗管理' and enter password to login. (Default password: password)
 
-## Update
+    Change store name, add manager and store.
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+## Licence
 
-## Configuration
+MIT License
 
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
+## Author
 
-## Layout
-
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+stack@haru66 (https://github.com/haru66)
