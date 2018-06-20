@@ -844,7 +844,7 @@ if($this->request->getQuery('forceFlag')){
 
         if(state){
             $(".dep-table").hide();
-
+alert(Object.keys(deplist2).length);
             for(var i = 0; i < Object.keys(deplist2).length; i++){
                 if($.inArray(deplist2[i]['id'], userlist[userId]['department']) >= 0){
                     $('#table-' + deplist2[i]['id']).show();

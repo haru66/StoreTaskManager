@@ -62,6 +62,10 @@
                     alert('ユーザーを選択してください。');
                     return false;
                 }
+                if($('#user-password').val() == ""){
+                    $('#error-password-empty').show();
+                    return false;
+                }
 
                 return true;
             });
@@ -71,6 +75,7 @@
 
                 if(userlist[id]['role'] >= 2 || userlist[id]['require_password'] == 1){
                     $('#user-password-div').show('fast');
+                    setFocus("#user-password");
                 } else {
                     $('#user-password-div').hide('fast');
                 }
@@ -78,7 +83,12 @@
 
         });
 
-
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
 
 
     </script>

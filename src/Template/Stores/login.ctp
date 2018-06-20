@@ -34,6 +34,8 @@
 
     <script>
         $(function(){
+            setFocus("#store-password");
+
             $('.modaal-login-form').modaal({
                 animation_speed: 50,
                 width: 300,
@@ -55,8 +57,20 @@
                 }
 
                 return true;
-            })
+            });
+
+            $('#store-id').change(function(){
+                setFocus("#store-password");
+            });
         });
+
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
     </script>
 </head>
 <body>
@@ -108,7 +122,7 @@
 
             <?php
 
-            echo '<select style="text-align: center;" class="form-control" name="store-id">';
+            echo '<select style="text-align: center;" class="form-control" id="store-id" name="store-id">';
             echo "<option value='0' selected='selected'>店舗を選択</option>";
 
 
