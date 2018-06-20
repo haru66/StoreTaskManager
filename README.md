@@ -3,6 +3,8 @@ StoreTaskManager
 
 StoreTaskManager is very simply task management tool for stores.
 
+***
+
 ## Description
 
 This is include these features:
