@@ -38,3 +38,6 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+
+# Ignore the default SQLite database.
+/db/*.sqlite
