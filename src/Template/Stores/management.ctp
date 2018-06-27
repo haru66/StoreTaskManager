@@ -90,6 +90,13 @@
 
         });
 
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
+
 
 
 
@@ -138,7 +145,7 @@
 
     <div class="form-group">
 
-        <p><a class="form-control btn btn-primary btn-lg modaal" href="#modaal-company-name-edit-form">社名変更</a> </p>
+        <p><a class="form-control btn btn-primary btn-lg modaal" onclick="setFocus('#company-name');" href="#modaal-company-name-edit-form">社名変更</a> </p>
         <p><a class="form-control btn btn-primary btn-lg" href="./edit">店舗リスト</a> </p>
         <p><a class="form-control btn btn-primary btn-lg" href="./add">店舗追加</a> </p>
         <p><a class="form-control btn btn-primary btn-lg" href="../users/edit">マネージャーリスト</a> </p>

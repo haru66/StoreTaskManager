@@ -22,8 +22,13 @@ if($todayFlag){
     $this->assign('todayLink', '<li><a href="./?today">今日のシートへ</a></li>');
 }
 
+// 値の読み込み、またはデフォルトの 0 を取得
+$autoReload = $this->request->getCookie('autoReload', 0);
+$this->assign('autoReload', $autoReload == 0 ? 'checked' : '');
+
 $this->assign('title', $storeParentName . " " . $stores->name);
 $this->assign('script', $this->Html->script('form.js'));
+$this->assign('script', $this->Html->css('table.css'));
 
 $this->assign('user', $users[$session->read('user')]->name);
 $this->assign('currentDay', $currentDayText);
@@ -37,161 +42,9 @@ if(!AppUtility::checkFuture($nextDay)){
 
 $this->assign('previousDay', $previousDay);
 
-if($this->request->getQuery('forceFlag')){
-    $todayFlag = true;
-}
-
 
 ?>
 
-<style type="text/css">
-    /* BOX DESIGN https://saruwakakun.com/html-css/reference/box */
-
-    li{
-        list-style-type: none;
-    }
-
-    td li {
-        list-style-type: none;
-        border-bottom: solid 1px;
-
-    }
-
-    td li.clickable{
-        cursor: pointer;
-    }
-    td li.clickable:hover{
-        color:royalblue;
-    }
-
-    span.edit{
-        float:right;
-        font-size: 10px
-    }
-
-    .priority-5 {background: red; color:white; }
-    .priority-4 {background: #FDC4C4; }
-    /*.priority-3 {background: #ffd;}
-    .priority-2 {background: #f6f6f6;}
-    .priority-1 {background: #dff;}*/
-
-    thead > tr > th {
-        text-align: center;
-    }
-
-
-
-    /* http://js.crap.jp/css3-table/ */
-
-    table {
-
-        *border-collapse: collapse;
-        /*border-collapse: separate;*/
-        border-spacing: 0;
-        font-size:14px;
-    }
-    #table th {
-        color: #fff;
-        padding: 8px 15px;
-        background: #258;
-        background:-moz-linear-gradient(rgba(34,85,136,0.7), rgba(34,85,136,0.9) 50%);
-        background:-webkit-gradient(linear, 100% 0%, 100% 50%, from(rgba(34,85,136,0.7)), to(rgba(34,85,136,0.9)));
-        font-weight: bold;
-        border-left:1px solid #258;
-        border-top:1px solid #258;
-        border-bottom:1px solid #258;
-        line-height: 120%;
-        text-align: center;
-        text-shadow:0 -1px 0 rgba(34,85,136,0.9);
-        box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
-    }
-    #table th:first-child {
-        border-radius: 5px 0 0 0;
-    }
-    #table th:last-child {
-        border-radius:0 5px 0 0;
-        border-right:1px solid #258;
-        box-shadow: 2px 2px 1px rgba(0,0,0,0.1), 0px 1px 1px rgba(255,255,255,0.3) inset;
-    }
-    #table td {
-        padding: 8px 15px;
-        border-bottom: 1px solid #84b2e0;
-        border-left: 1px solid #84b2e0;
-
-        box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
-        /*text-align: center;
-        width:1px;white-space:nowrap;*/
-    }
-    .department-name{
-        -webkit-writing-mode: vertical-rl;
-        -ms-writing-mode: tb-rl;
-        -webkit-text-orientation: upright;
-        text-orientation: upright;
-        writing-mode: tb-rl; /* IE用 */
-        writing-mode: vertical-rl; /* Chrome、Firefox用 */
-        margin: 0 auto;
-        white-space: nowrap;
-        width: 1em; /* firefox対策 */
-        line-height: 1em; /* firefox対策 */
-    }
-
-    @media only screen and (max-width: 1000px) {
-        #table {
-            display: block;
-            width: 100%;
-            margin: 0 -10px;
-        }
-        #table thead{
-            display: block;
-            float: left;
-            overflow-x:scroll;
-        }
-        #table tbody{
-            display: block;
-            width: auto;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        #table th{
-            display: block;
-            width:auto;
-        }
-        #table tbody tr{
-            display: inline-block;
-            margin: 0 -3px;
-        }
-        #table td{
-            display: block;
-        }
-    }
-
-    #table tr td:last-child {
-        border-right: 1px solid #84b2e0;
-
-    }
-    #table tr {
-        background: #fff;
-    }
-    #table tr:nth-child(2n+1) {
-        /*background: #f1f6fc;*/
-    }
-    #table tr:last-child td {
-        box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
-    }
-    #table tr:last-child td:first-child {
-        border-radius: 0 0 0 5px;
-    }
-    #table tr:last-child td:last-child {
-        border-radius: 0 0 5px 0;
-    }
-    #table tr:hover {
-        /*background: #bbd4ee;*/
-        background: #e3eaef;
-        /*cursor:pointer;*/
-    }
-
-
-</style>
 
 <script type="text/javascript">
 
@@ -238,16 +91,16 @@ if($this->request->getQuery('forceFlag')){
             echo 'deplist2["'.$i.'"] = { name: "'.$dep->name.'", id: '.$dep->id.', parent: 0, is_sub: false };';
 
             if(!$dep->is_sub){
-
+                $i++;
                 foreach($dep->sub as $sub){
-                        $i++;
+
                         $deplist[$sub->id]['name'] = $sub->name;
                         $deplist[$sub->id]['is_sub'] = $sub->is_sub;
                         $deplist[$sub->id]['parent'] = $sub->parent;
 
                         echo 'deplist2["'.$i.'"] = { id: '.$sub->id.', name: "'.$sub->name.'", parent: '.$sub->parent.', is_sub: true };';
 
-
+                        $i++;
                 }
 
             } else {
@@ -278,16 +131,44 @@ if($this->request->getQuery('forceFlag')){
 
     ?>
 
-
-
+    // reload after 1 min (1sec x 60)
+    var reloadSec = 60;
 
     var modalOpen = false;
+    var showAllDeps = true;
+    var autoReload = true;
+    var today = <?= $todayFlag ? "true" : "false" ?>;
 
     $(function(){
 
-        setInterval(function(){
-            if(!modalOpen) location.reload();
-        },1000*60); // reload after 1 min (1sec x 60)
+        if(today){
+            setInterval(function () {
+                if (!modalOpen && autoReload) reloadView();
+            }, 1000 * reloadSec);
+
+            if($.cookie('autoReload') == '0' || $.cookie('autoReload') == undefined){
+                autoReload = true;
+            } else {
+                autoReload = false;
+            }
+        } else {
+            $('#autoreloadCheckbox').hide();
+            autoReload = false;
+        }
+
+        if($.cookie('viewMode') == '0' || $.cookie('viewMode') == undefined){
+            showAllDeps = true;
+        } else {
+            toggleView();
+        }
+
+        $('.modaal').modaal({
+            animation_speed: 50,
+            width: 490,
+            is_locked: true,
+            background: "gray",
+            loading_content: 'Loading content, please wait.'
+        });
 
         $("#sheet-date").datepicker({
             maxViewMode: 2,
@@ -301,14 +182,10 @@ if($this->request->getQuery('forceFlag')){
             endDate: Date()
         });
 
-
-
-        $('.modaal').modaal({
-            animation_speed: 50,
-            width: 490,
-            is_locked: true,
-            background: "gray",
-            loading_content: 'Loading content, please wait.'
+        $('#autoreload').change(function(){
+            autoReload = !autoReload;
+            $('#autoreload').prop('checked', autoReload);
+            $.cookie('autoReload', autoReload ? 0 : 1, { path: '/' });
         });
 
         $('input').change(function(elem){
@@ -393,12 +270,31 @@ if($this->request->getQuery('forceFlag')){
         });
     }
 
+
     function br2nl(str) {
         return str.replace(/(<br>|<br \/>)/gi, '\n');
-    };
+    }
     function brdel(str) {
         return str.replace(/(<br>|<br \/>)/gi, '');
-    };
+    }
+
+    function reloadView(){
+        /*$.ajax({
+            url: 'view?ajax=true',
+            type: 'get'
+        }).done(function (data, status, jqXHR) {
+            //var dom = $(data);
+            //alert(data);
+            $('#container').html(data);
+        }).fail(function (jqXHR, status, error) {
+            // 失敗時の処理
+            alert('Error : ' + error);
+        });
+
+        return true;*/
+
+        location.reload();
+    }
 
     function refreshMemo(){
         modalOpen = true;
@@ -408,6 +304,8 @@ if($this->request->getQuery('forceFlag')){
             type: 'get'
         }).done(function (data, status, jqXHR) {
             $('#memo-text').val(brdel(data));
+
+            setFocus('#memo-text');
             // 成功時の処理
             /*var res = JSON.parse(data);
             if (res.res != 'error') {
@@ -498,6 +396,7 @@ if($this->request->getQuery('forceFlag')){
             $('#task-edit-worker-list').hide();
             $('#task-edit-worker-info').hide();
 
+            $('#task-edit-due-date-div-noedit').hide();
 
             $('#action-task').val('task-add');
         } else {
@@ -555,6 +454,7 @@ if($this->request->getQuery('forceFlag')){
             if(userId == task.attr('author') || userlist[userId]['role'] >= 2){
                 $('#task-edit-worker-info').hide();
                 $('#task-edit-due-date-info').hide();
+                $('#task-edit-due-date-div-noedit').hide();
 
                 $('#task-edit-due-date-div').show();
 
@@ -584,16 +484,19 @@ if($this->request->getQuery('forceFlag')){
             } else {
                 $('#task-edit-worker-info').show();
                 $('#task-edit-delete').hide();
+                $('#task-edit-due-date-div-noedit').show();
 
                 $('#task-edit-due-date-info').show();
                 $('#task-edit-due-date-div').hide();
 
-                $('#task-edit-due-date-text').text(task.attr('due-date-f'));
-                if(task.attr('due-date-over')){
+
+                if(task.attr('due-date-over') && task.attr('due-date-f') != '1970年01月01日'){
                     $('#task-edit-due-date-text').css('color', 'red').css('font-weight', 'bold');
                 } else {
                     $('#task-edit-due-date-text').css('color', 'black').css('font-weight', '');
                 }
+
+                $('#task-edit-due-date-text').text(task.attr('due-date-f') == '1970年01月01日' ? '設定なし' : task.attr('due-date-f'));
 
                 var workerList = '';
                 for(var i = 0; i < worker.length; i++){
@@ -838,25 +741,59 @@ if($this->request->getQuery('forceFlag')){
         $('#msg-view-detail').html(task.attr('detail'));
     }
 
-
     function toggleView(){
-        var state = $('#toggle-view-btn').text() == '担当部門のみ表示' ? true : false;
+        //var state = $('#toggle-view-btn').text() == '担当部門のみ表示' ? true : false;
+        var state = showAllDeps;
 
-        if(state){
-            $(".dep-table").hide();
-alert(Object.keys(deplist2).length);
-            for(var i = 0; i < Object.keys(deplist2).length; i++){
-                if($.inArray(deplist2[i]['id'], userlist[userId]['department']) >= 0){
-                    $('#table-' + deplist2[i]['id']).show();
-                    $('#table-' + deplist2[i]['parent']).show();
+        var uid = <?= $session->read('user') ?>;
+
+        for (var i = 0; i < Object.keys(deplist2).length; i++) {
+            var did = deplist2[i.toString()]['id'];
+
+            if (state) {
+
+                $('#table-' + (did)).hide();
+                $('#table-' + (did) + " > td").removeAttr('rowspan');
+
+                if ($.inArray(did, userlist[uid]['department']) >= 0) {
+                    $('#table-' + (did)).show();
+
+                    var s = '#table-' + deplist2[i.toString()]['parent'] + " > td";
+
+                    if ($(s).attr('rowspan') == undefined) {
+                        $(s).attr('rowspan', 2);
+                    } else {
+                        var n = $(s).attr('rowspan');
+                        $(s).attr('rowspan', (parseInt(n) + 1));
+                    }
+
+                    $('#table-' + deplist2[i.toString()]['parent']).show();
                 }
+
+                $('#toggle-view-btn').text('全部門を表示');
+                showAllDeps = false;
+                $.cookie('viewMode', '1', { path: '/' });
+            } else {
+                $('#table-' + (did)).hide();
+                $('#table-' + (did) + " > td").removeAttr('rowspan');
+
+                $('#table-' + (did)).show();
+
+                var s = '#table-' + deplist2[i.toString()]['parent'] + " > td";
+
+                if ($(s).attr('rowspan') == undefined) {
+                    $(s).attr('rowspan', 2);
+                } else {
+                    var n = $(s).attr('rowspan');
+                    $(s).attr('rowspan', (parseInt(n) + 1));
+                }
+
+                $('#table-' + deplist2[i.toString()]['parent']).show();
+
+                $('#toggle-view-btn').text('担当部門のみ表示');
+                showAllDeps = true;
+                $.cookie('viewMode', '0', { path: '/' });
             }
-
-            $('#toggle-view-btn').text('全部門を表示');
-        } else {
-            $(".dep-table").show();
-
-            $('#toggle-view-btn').text('担当部門のみ表示');
         }
     }
 
@@ -987,13 +924,16 @@ alert(Object.keys(deplist2).length);
                 <input id="task-edit-due-date" name="task-due-date" class="form-control" type="text" style="margin-top:17px;margin-left:10px;margin-right:15px;width: 127px;cursor: pointer">
             </div>
 
-            <p id="task-edit-due-date-text" ></p>
+
+        </div>
+        <div class="form-group" id="task-edit-due-date-div-noedit" style="margin-top: 8px;display: none;">
+            <p id="task-edit-due-date-text" class="" style="width: auto;"></p>
         </div>
 
 
 
         <div class="form-group">
-        <label for="tasktask-edit-detail">タスク詳細(省略可):</label>
+        <label for="task-edit-detail">タスク詳細(省略可):</label>
         <textarea id="task-edit-detail" name="task-detail" class="form-control" rows="5"></textarea>
             </div>
 
@@ -1084,7 +1024,7 @@ alert(Object.keys(deplist2).length);
 
         <div class="form-inline"  style="margin-top: -20px;">
             <div class="form-group">
-                <label for="task-view-department">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</label>
+                <label for="task-view-department">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</label>
                 <p id="task-view-department" class="form-content" style="margin-top:17px;margin-left:9px;margin-right:15px;color: black"></p>
             </div>
         </div>
@@ -1291,7 +1231,6 @@ alert(Object.keys(deplist2).length);
 
 </div>
 
-
 <div id="modaal-dailytask-view" class="modaal-dailytask-view modal-view" style="display:none; margin: 10px auto;">
 
     <h3 id="dailytask-view-title"></h3>
@@ -1347,10 +1286,14 @@ alert(Object.keys(deplist2).length);
 </div>
 
 
-<div style=" padding: 30px 0px 60px 0px;">
+
+
+<div id="main" style="padding: 30px 0px 60px 0px;">
 
 
     <!--<table width="1400px" id="table" class="table table-bordered table-hover table-striped table-responsive">-->
+
+
     <table id="table" class="" style="margin: 0 auto;">
         <thead>
         <tr>
@@ -1574,8 +1517,5 @@ alert(Object.keys(deplist2).length);
         </tbody>
     </table>
 
+
 </div>
-
-
-
-

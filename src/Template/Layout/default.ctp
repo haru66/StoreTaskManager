@@ -32,6 +32,7 @@
     <?= $this->Html->css('modaal.css') ?>
 
     <?= $this->Html->script('jquery-2.2.4.min.js') ?>
+    <?= $this->Html->script('jquery.cookie.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('bootstrap-datepicker.min.js') ?>
     <?= $this->Html->script('bootstrap-datepicker.ja.min.js') ?>
@@ -64,6 +65,7 @@
             <li><a class="modaal" href="#memo" onclick="refreshMemo()">メモ</a></li>
         </ul>
         <ul class="right">
+            <li id="autoreloadCheckbox"><input type="checkbox" class="checkbox" <?= $this->fetch('autoReload') ?> id="autoreload"><label for="autoreload" class="checkbox" style="color:white;background-color: transparent;">自動更新</label></li>
             <li <?= $this->fetch('showToggleBtn') ?>><a href="javascript:toggleView()" id="toggle-view-btn">担当部門のみ表示</a></li>
             <li><a href="?<?= $this->fetch('previousDay') ?>">＜前の日</a></li>
             <li><input value="<?= $this->fetch('sheetDate') ?>" type="text" id="sheet-date" style="cursor:pointer;width: 126px; background-color: black;color: white;border: none;"></li>
@@ -77,6 +79,7 @@
     <?= $this->fetch('content') ?>
 </div>
 <footer>
+    <p style="text-align: center; font-size: 9px;"><a href="https://github.com/haru66/StoreTaskManager">StoreTaskManager ver 1.0.1</a></p>
 </footer>
 </body>
 </html>

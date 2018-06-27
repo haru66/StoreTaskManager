@@ -46,6 +46,9 @@
             });
 
 
+            setFocus('#name');
+
+
             $('#form').submit(function () {
                 $('#error-name-empty').hide();
                 $('#error-password-empty').hide();
@@ -78,6 +81,13 @@
                 if(err) return false;
             });
         });
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
 
     </script>
 </head>

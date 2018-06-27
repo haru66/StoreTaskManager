@@ -295,7 +295,7 @@
                 }
                 if(err) return false;
 
-                if(confirm('入力の内容でユーザーを追加します。よろしいですか？')) {
+                if(confirm('入力の内容でスタッフを追加します。よろしいですか？')) {
                     var checked = [];
                     $('[name="departments[]"]:checked').each(function(){
                         checked.push($(this).val());
@@ -319,7 +319,7 @@
                         var res = JSON.parse(data);
                         if (res.res != 'error') {
 
-                            alert("ユーザー "+n+"を追加しました。");
+                            alert("スタッフ "+n+"を追加しました。");
                             $('.modaal').modaal('close');
                             location.reload();
                         } else {
@@ -410,7 +410,7 @@
                         var res = JSON.parse(data);
                         if (res.res != 'error') {
 
-                            alert("ユーザーを削除しました。");
+                            alert("スタッフを削除しました。");
                             $('.modaal').modaal('close');
                             location.reload();
                         } else {
@@ -524,7 +524,7 @@ foreach($users as $user) {
 
     <div class="form-group" style="text-align: center">
 
-        <h3 style="text-align: center">ユーザー権限を変更</h3>
+        <h3 style="text-align: center">スタッフ権限を変更</h3>
         <p><span id="role-user-name" style="font-weight: bold;"></span> さんを <span id="role-from" style="font-weight: bold;"></span> から <span id="role-to" style="font-weight: bold;"></span> に切り替える</p>
 
         <!--form action="user" method="post" id="role-form"-->
@@ -553,7 +553,7 @@ foreach($users as $user) {
 
     <div class="form-group">
 
-        <h3 style="text-align: center">ユーザー追加フォーム</h3>
+        <h3 style="text-align: center">スタッフ追加フォーム</h3>
 
 
 
@@ -563,7 +563,7 @@ foreach($users as $user) {
                 <input type="text" name="dummy_text"  disabled="disabled" style="width:2px;height:2px;position:absolute;opacity:0"/>
                 <input type="password" name="dummy_password" disabled="disabled" style="width:2px;height:2px;position:absolute;opacity:0"/>
 
-                <label for="add-user-name">ユーザー名：</label>
+                <label for="add-user-name">スタッフ名：</label>
                 <span id="error-user-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
                 <input type="text" name="name" id="add-user-name">
 
@@ -665,13 +665,13 @@ foreach($users as $user) {
 
     <div class="form-group">
 
-        <h3 style="text-align: center">ユーザー名を変更</h3>
+        <h3 style="text-align: center">スタッフ名を変更</h3>
 
 
 
         <div class="form-group">
 
-            <label for="edit-name" style="text-align: left;">ユーザー名：</label><span id="error-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
+            <label for="edit-name" style="text-align: left;">スタッフ名：</label><span id="error-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
             <input type="text" id="edit-name" name="name" value="">
             <input type="hidden" name="id" id="name-edit-id" value="">
             <div class="form-group" style="text-align: center">
@@ -789,7 +789,7 @@ foreach($users as $user) {
                 <?php
                 /*
                 echo '<select style="text-align: center;" class="form-control" id="user-name">';
-                echo "<option value='0'>ユーザーを選択</option>";
+                echo "<option value='0'>スタッフを選択</option>";
 
                 foreach($users as $user){
                     if($user->id == 0) continue;
@@ -801,7 +801,7 @@ foreach($users as $user) {
 
 
                 echo '<select style="text-align: center;" class="form-control" id="user-name">';
-                echo "<option value='0' selected='selected'>ユーザーを選択</option>";
+                echo "<option value='0' selected='selected'>スタッフを選択</option>";
 
                 $cnt1 = 0;
                 $cnt2 = 0;
@@ -898,16 +898,16 @@ foreach($users as $user) {
 
 
 
-                <label for="user-role">ユーザー権限：</label><a id="role-edit" onclick="showRoleForm()" class="modaal" style="margin-left: 10px; font-size: 12px;" href="#modaal-role-form">権限を変更</a>
+                <label for="user-role">スタッフ権限：</label><a id="role-edit" onclick="showRoleForm()" class="modaal" style="margin-left: 10px; font-size: 12px;" href="#modaal-role-form">権限を変更</a>
                 <p class="form-control" id="user-role"></p>
 
                 <div id="user-edit-div">
 
-                    <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="nameEdit()" id="user-name-edit">ユーザー名変更</button></p>
+                    <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="nameEdit()" id="user-name-edit">スタッフ名変更</button></p>
 
                     <p><button class="form-control btn btn-primary modaal" href="#modaal-pw-reset-form" id="user-password-edit">パスワードリセット</button></p>
 
-                    <p><button class="form-control btn btn-danger" id="user-delete" onclick="deleteUser()">ユーザー削除</button></p>
+                    <p><button class="form-control btn btn-danger" id="user-delete" onclick="deleteUser()">スタッフ削除</button></p>
 
                 </div>
 
@@ -916,7 +916,7 @@ foreach($users as $user) {
 
             <div class="form-group" style="padding-top:30px;">
                 <button class="form-control btn btn-info" style=" width: 130px;" onclick="history.back()">戻る</button>
-                <button class="form-control btn btn-primary modaal" href="#modaal-user-add-form" style="text-align: center; padding-left: 10px;width: 130px;" onclick="setFocus('#add-user-name');">ユーザー追加</button>
+                <button class="form-control btn btn-primary modaal" href="#modaal-user-add-form" style="text-align: center; padding-left: 10px;width: 130px;" onclick="setFocus('#add-user-name');">スタッフ追加</button>
             </div>
 
         </div>

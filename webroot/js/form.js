@@ -26,7 +26,7 @@ $(function() {
             if(!confirm('タスクを追加してもよろしいですか？')){
                 return false;
             }
-            alert('がんばりましょう！');
+            alert('追加しました！');
             $('.modaal').modaal('close');
         } else if(act == 'task-edit'){
             if($('#task-edit-worker-div :checked').length == 0){

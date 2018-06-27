@@ -82,7 +82,7 @@
 
                 $('#name-edit-id').val(nowSelectId);
 
-                if(confirm(userlist[nowSelectId]['name'] + 'さんのユーザー名を変更してもよろしいですか？')) {
+                if(confirm(userlist[nowSelectId]['name'] + 'さんのマネージャー名を ' + $('#edit-name').val() + 'に変更してもよろしいですか？')) {
                     var data = {
                         action : 'edit-name',
                         id : nowSelectId,
@@ -97,7 +97,7 @@
                         var res = JSON.parse(data);
                         if (res.res != 'error') {
 
-                            alert("ユーザー名を変更しました。");
+                            alert("マネージャー名を変更しました。");
                             $('.modaal').modaal('close');
                             location.reload();
                         } else {
@@ -171,7 +171,7 @@
                         var res = JSON.parse(data);
                         if (res.res != 'error') {
 
-                            alert("ユーザーを削除しました。");
+                            alert("マネージャーを削除しました。");
                             $('.modaal').modaal('close');
                             location.reload();
                         } else {
@@ -199,13 +199,13 @@
 
     <div class="form-group">
 
-        <h3 style="text-align: center">ユーザー名を変更</h3>
+        <h3 style="text-align: center">マネージャー名を変更</h3>
 
 
 
         <div class="form-group">
 
-            <label for="edit-name" style="text-align: left;">ユーザー名：</label><span id="error-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
+            <label for="edit-name" style="text-align: left;">マネージャー名：</label><span id="error-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
                 <input type="hidden" name="action" value="edit-name">
                 <input type="text" id="edit-name" name="name" value="">
                 <input type="hidden" name="id" id="name-edit-id" value="">
@@ -266,7 +266,7 @@
                 <?php
 
                 echo '<select style="text-align: center;" class="form-control" id="user-name">';
-                echo "<option value='0' selected='selected'>ユーザーを選択</option>";
+                echo "<option value='0' selected='selected'>マネージャーを選択</option>";
 
 
                 foreach ($users as $user) {
@@ -288,11 +288,11 @@
 
             <div id="user-edit-div" style="display: none">
 
-                <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="" id="user-name-edit">ユーザー名変更</button></p>
+                <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="" id="user-name-edit">マネージャー名変更</button></p>
 
                 <p><button class="form-control btn btn-primary modaal" href="#modaal-pw-reset-form" id="user-password-edit">パスワードリセット</button></p>
 
-                <p><button class="form-control btn btn-danger" id="user-delete" onclick="deleteUser()">ユーザー削除</button></p>
+                <p><button class="form-control btn btn-danger" id="user-delete" onclick="deleteUser()">マネージャー削除</button></p>
 
             </div>
 

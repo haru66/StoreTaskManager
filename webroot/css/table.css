@@ -1,0 +1,144 @@
+/* BOX DESIGN https://saruwakakun.com/html-css/reference/box */
+
+li{
+    list-style-type: none;
+}
+
+td li {
+    list-style-type: none;
+    border-bottom: solid 1px;
+
+}
+
+td li.clickable{
+    cursor: pointer;
+}
+td li.clickable:hover{
+    color:royalblue;
+}
+
+span.edit{
+    float:right;
+    font-size: 10px
+}
+
+.priority-5 {background: red; color:white; }
+.priority-4 {background: #FDC4C4; }
+/*.priority-3 {background: #ffd;}
+.priority-2 {background: #f6f6f6;}
+.priority-1 {background: #dff;}*/
+
+thead > tr > th {
+    text-align: center;
+}
+
+
+
+/* http://js.crap.jp/css3-table/ */
+
+table {
+
+    *border-collapse: collapse;
+    /*border-collapse: separate;*/
+    border-spacing: 0;
+    font-size:14px;
+}
+#table th {
+    color: #fff;
+    padding: 8px 15px;
+    background: #258;
+    background:-moz-linear-gradient(rgba(34,85,136,0.7), rgba(34,85,136,0.9) 50%);
+    background:-webkit-gradient(linear, 100% 0%, 100% 50%, from(rgba(34,85,136,0.7)), to(rgba(34,85,136,0.9)));
+    font-weight: bold;
+    border-left:1px solid #258;
+    border-top:1px solid #258;
+    border-bottom:1px solid #258;
+    line-height: 120%;
+    text-align: center;
+    text-shadow:0 -1px 0 rgba(34,85,136,0.9);
+    box-shadow: 0px 1px 1px rgba(255,255,255,0.3) inset;
+}
+#table th:first-child {
+    border-radius: 5px 0 0 0;
+}
+#table th:last-child {
+    border-radius:0 5px 0 0;
+    border-right:1px solid #258;
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.1), 0px 1px 1px rgba(255,255,255,0.3) inset;
+}
+#table td {
+    padding: 8px 15px;
+    border-bottom: 1px solid #84b2e0;
+    border-left: 1px solid #84b2e0;
+
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
+    /*text-align: center;
+    width:1px;white-space:nowrap;*/
+}
+.department-name{
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl;
+    -webkit-text-orientation: upright;
+    text-orientation: upright;
+    writing-mode: tb-rl; /* IE用 */
+    writing-mode: vertical-rl; /* Chrome、Firefox用 */
+    margin: 0 auto;
+    white-space: nowrap;
+    width: 1em; /* firefox対策 */
+    line-height: 1em; /* firefox対策 */
+}
+
+@media only screen and (max-width: 1000px) {
+    #table {
+        display: block;
+        width: 100%;
+        margin: 0 -10px;
+    }
+    #table thead{
+        display: block;
+        float: left;
+        overflow-x:scroll;
+    }
+    #table tbody{
+        display: block;
+        width: auto;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    #table th{
+        display: block;
+        width:auto;
+    }
+    #table tbody tr{
+        display: inline-block;
+        margin: 0 -3px;
+    }
+    #table td{
+        display: block;
+    }
+}
+
+#table tr td:last-child {
+    border-right: 1px solid #84b2e0;
+
+}
+#table tr {
+    background: #fff;
+}
+#table tr:nth-child(2n+1) {
+    /*background: #f1f6fc;*/
+}
+#table tr:last-child td {
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
+}
+#table tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+}
+#table tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+}
+#table tr:hover {
+    /*background: #bbd4ee;*/
+    background: #e3eaef;
+    /*cursor:pointer;*/
+}

@@ -16,7 +16,6 @@ class TasksController extends AppController {
     {
         $session = $this->request->getSession();
 
-        //$currentDay = $this->request->query('d');
         $currentDay = explode('&', $_SERVER['QUERY_STRING'])[0];
 
         if($session->check('admin')){
@@ -46,13 +45,10 @@ class TasksController extends AppController {
             //$currentDay = date("Y年m月d日");
             $currentDay = date("Y-m-d");
         }
-        //debug
-        else if($this->request->query('forceFlag')){
-            $currentDay = explode('&', $_SERVER['QUERY_STRING'])[0];
-        } else if(AppUtility::checkFuture($currentDay)){
+
+        if(AppUtility::checkFuture($currentDay)){
             $this->redirect(['controller' => 'tasks', 'action' => 'view']);
             return;
-            //$currentDay = $today;
         }
 
 
@@ -151,7 +147,7 @@ class TasksController extends AppController {
         $this->set('tasksTodayCompleted', $tasksTodayCompleted);
 
         //$usersTmp = $this->Users->find('all')->where(['deleted' => '0', 'OR' => [[ 'store' => $storeId], ['role' => '3']]]);
-        $usersTmp = $this->Users->find('all')->where(['OR' => [[ 'store' => $storeId], ['role' => '3']]]);
+        $usersTmp = $this->Users->find('all')->where(['OR' => [[ 'store' => $storeId], ['role' => '3' , 'deleted' => '0']]]);
         //$usersTmp = $this->Users->find('all')->where(['OR' => ['store' => $storeId], ['role' => '3']]);
         $users = array();
         foreach ($usersTmp as $userTmp) {
@@ -240,6 +236,27 @@ class TasksController extends AppController {
                 }
             } else if($receive['action'] == 'task-success'){
                 $task = $this->Tasks->get($receive['task-id']);
+
+                $workers = '';
+                for($i = 0; $i < count($receive['task-worker']); $i++){
+                    if($workers != '') $workers .= ',';
+                    $workers .= $receive['task-worker'][$i];
+                }
+
+                $task->caption = $receive['task-caption'];
+                $task->detail = nl2br($receive['task-detail']);
+                $task->situation = nl2br($receive['task-situation']);
+                $task->department = $receive['task-department'];
+                $task->update_date = date('Y-m-d');
+                $task->update_date_time = date('H:i');
+                $task->update_user = $session->read('user');
+                $due = str_replace('年', '-', $receive['task-due-date']);
+                $due = str_replace('月', '-', $due);
+                $due = str_replace('日', '', $due);
+                $task->due_date = $due == '' ? NULL : $due;
+                $task->priority = $receive['task-priority'];
+                $task->worker = $workers;
+
 
                 $task->completed = 1;
                 $task->completed_user = $session->read('user');

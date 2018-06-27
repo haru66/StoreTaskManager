@@ -49,6 +49,8 @@
                 loading_content: 'Loading content, please wait.'
             });
 
+            setFocus('#name');
+
 
             $('#form').submit(function () {
                 $('#error-name-empty').hide();
@@ -89,6 +91,13 @@
                 if(err) return false;
             });
         });
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
 
 
     </script>

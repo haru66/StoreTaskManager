@@ -109,6 +109,8 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout(false);
 
         $this->request->getSession()->write('user', null);
+        $this->response = $this->response->withCookie('viewMode', '0');
+        $this->response = $this->response->withCookie('autoReload', '0');
 
         $this->redirect(array('action' => 'login'));
     }

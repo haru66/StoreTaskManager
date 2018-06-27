@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        ユーザーログイン - StoreTaskManager
+        スタッフログイン - StoreTaskManager
     </title>
     <?= $this->Html->meta('icon') ?>
 
@@ -58,8 +58,8 @@
             });
 
             $('#login-form').submit(function(){
-                if($("#user-id option:selected").text() == 'ユーザーを選択'){
-                    alert('ユーザーを選択してください。');
+                if($("#user-id option:selected").text() == 'スタッフを選択'){
+                    alert('スタッフを選択してください。');
                     return false;
                 }
                 if($('#user-password').val() == ""){
@@ -78,6 +78,7 @@
                     setFocus("#user-password");
                 } else {
                     $('#user-password-div').hide('fast');
+                    setFocus("#login-form-submit");
                 }
             });
 
@@ -109,7 +110,7 @@
             <?php
 
                 echo '<select style="text-align: center;" class="form-control" id="user-id" name="user-id">';
-                echo "<option value='0'>ユーザーを選択</option>";
+                echo "<option value='0'>スタッフを選択</option>";
 
                 $cnt1 = 0;
                 $cnt2 = 0;

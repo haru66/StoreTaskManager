@@ -139,12 +139,12 @@
 
 <div id="modaal-form" class="modaal-form" style="margin: 10px auto;">
 
-        <p><h3 style="text-align: center;">ユーザー設定</h3></p>
+        <p><h3 style="text-align: center;">スタッフ設定</h3></p>
 
 
     <div class="form-group form-control">
 
-        <label for="user-name">ユーザー名：</label>
+        <label for="user-name">スタッフ名：</label>
         <p id="user-name" class="form-control"><?= $user ?></p>
 
         <label for="user-dep">担当部門：</label>
@@ -187,8 +187,10 @@
 
         </div>
 
-        <label for="user-role">権限：</label>
-        <p id="user-role" class="form-control"><?= $role ?></p>
+        <div style="margin-top:15px;">
+            <label for="user-role">権限：</label>
+            <p id="user-role" class="form-control"><?= $role ?></p>
+        </div>
 
     </div>
 
