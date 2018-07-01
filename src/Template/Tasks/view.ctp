@@ -27,8 +27,6 @@ $autoReload = $this->request->getCookie('autoReload', 0);
 $this->assign('autoReload', $autoReload == 0 ? 'checked' : '');
 
 $this->assign('title', $storeParentName . " " . $stores->name);
-$this->assign('script', $this->Html->script('form.js'));
-$this->assign('script', $this->Html->css('table.css'));
 
 $this->assign('user', $users[$session->read('user')]->name);
 $this->assign('currentDay', $currentDayText);
@@ -41,6 +39,10 @@ if(!AppUtility::checkFuture($nextDay)){
 }
 
 $this->assign('previousDay', $previousDay);
+
+
+echo $this->Html->script('form.js');
+echo $this->Html->css('table.css');
 
 
 ?>

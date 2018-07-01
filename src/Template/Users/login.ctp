@@ -58,11 +58,13 @@
             });
 
             $('#login-form').submit(function(){
+                var id = $("#user-id").val();
+
                 if($("#user-id option:selected").text() == 'スタッフを選択'){
                     alert('スタッフを選択してください。');
                     return false;
                 }
-                if($('#user-password').val() == ""){
+                if($('#user-password').val() == "" && userlist[id]['require_password'] == 1){
                     $('#error-password-empty').show();
                     return false;
                 }
@@ -110,7 +112,7 @@
             <?php
 
                 echo '<select style="text-align: center;" class="form-control" id="user-id" name="user-id">';
-                echo "<option value='0'>スタッフを選択</option>";
+                echo "<option value='0'>アカウントを選択</option>";
 
                 $cnt1 = 0;
                 $cnt2 = 0;
@@ -195,7 +197,7 @@
         <div class="form-group" id="user-password-div" style="display: <?= $pwRequired; ?>;">
 
             <label for="user-password">パスワード:</label>
-            <span id="error-password-empty" style="display:none; color:red; font-size: 13px;">パスワードが入力されていません</span>
+            <span id="error-password-empty" style="display:none; color:red; font-size: 13px;">入力されていません</span>
             <input type="password" class="form-control" name="password" id="user-password">
         </div>
 
