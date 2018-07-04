@@ -191,6 +191,14 @@
             return false;
         }
 
+
+        function setFocus(sel){
+            setTimeout(function(){
+                //webkit,geckoにはfocus()にsetTimeoutが必要
+                $(sel).focus();//入力欄にフォーカス
+            },200);
+        }
+
     </script>
 </head>
 <body style="background-color:#B2EBF6">
@@ -288,7 +296,7 @@
 
             <div id="user-edit-div" style="display: none">
 
-                <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="" id="user-name-edit">マネージャー名変更</button></p>
+                <p><button class="form-control btn btn-info modaal" href="#modaal-name-edit-form" onclick="setFocus('#edit-name')" id="user-name-edit">マネージャー名変更</button></p>
 
                 <p><button class="form-control btn btn-primary modaal" href="#modaal-pw-reset-form" id="user-password-edit">パスワードリセット</button></p>
 

@@ -202,7 +202,7 @@
             $('#reset-password-submit').click(function () {
                 $('#reset-password-id').val(nowSelectId);
 
-                if(confirm('パスワードをリセットします。よろしいですか？\n(リセット後のパスワードは、「password」です。)')) {
+                if(confirm(userlist[nowSelectId]['name']+'さんのパスワードをリセットします。よろしいですか？\n(リセット後のパスワードは、「password」です。)')) {
                     var data = {
                         action : 'reset-password',
                         id : nowSelectId,
@@ -319,7 +319,7 @@
                         var res = JSON.parse(data);
                         if (res.res != 'error') {
 
-                            alert("スタッフ "+n+"を追加しました。");
+                            alert("スタッフ "+n+"さんを追加しました。");
                             $('.modaal').modaal('close');
                             location.reload();
                         } else {

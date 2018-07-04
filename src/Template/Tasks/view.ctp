@@ -184,6 +184,10 @@ echo $this->Html->css('table.css');
             endDate: Date()
         });
 
+        $('#task-edit-department').change(function(){
+            updateWorkerList();
+        });
+
         $('#autoreload').change(function(){
             autoReload = !autoReload;
             $('#autoreload').prop('checked', autoReload);
@@ -334,6 +338,8 @@ echo $this->Html->css('table.css');
 
         setFocus('#task-edit-caption');
 
+
+
         $('#worker-select-div').hide();
         $('#task-edit-worker-checkbox' + userId).attr('onclick', 'return false;');
 
@@ -341,6 +347,8 @@ echo $this->Html->css('table.css');
 
         $('#task-edit-due-date-text').text('');
         $('#task-edit-due-date-info').hide();
+
+
 
         if(id == -1) {
             initTaskDatepicker();
@@ -502,8 +510,13 @@ echo $this->Html->css('table.css');
 
                 var workerList = '';
                 for(var i = 0; i < worker.length; i++){
-                    console.log(worker[i]);
-                    workerList =  workerList + "<span style='margin-right: 16px; display: inline-block;'>" + userlist[worker[i]]['name'] + "</span>";
+                    //console.log(worker[i]);
+                    var s = "";
+                    alert(userlist[worker[i]]['role']);
+                    if(userlist[worker[i]]['role'] >= 2){
+                        s = "background-color: red;";
+                    }
+                    workerList =  workerList + "<span style='margin-right: 16px; display: inline-block; "+s+"'>" + userlist[worker[i]]['name'] + "</span>";
                 }
 
                 for(var i = 0; i < Object.keys(userlist).length; i++){
@@ -523,6 +536,8 @@ echo $this->Html->css('table.css');
                 $('#task-edit-worker-checkbox' + worker[i]).prop('checked', 'checked');
             }
         }
+
+        updateWorkerList();
     }
 
     function showTaskView(id = -1, done = 0){
@@ -623,6 +638,20 @@ echo $this->Html->css('table.css');
         $('#task-view-created').text(task.attr('created-date') + " " + task.attr('created-date-time'));
 
         $('[id=task-view-priority]').text(priorityText[task.attr('priority')-1]);
+    }
+
+    function updateWorkerList(){
+        var nowDep = $('#task-edit-department').val();
+
+        for(var i = 0; i < useridlist.length; i++){
+            if(userlist[useridlist[i]]['role'] != 1) continue;
+
+            if($.inArray(parseInt(nowDep), userlist[useridlist[i]]['department']) >= 0){
+                $('#task-edit-worker-checkbox' + useridlist[i] + "-label").text('[担当]'+userlist[useridlist[i]]['name']);
+            } else {
+                $('#task-edit-worker-checkbox' + useridlist[i] + "-label").text(userlist[useridlist[i]]['name']);
+            }
+        }
     }
 
     function showMsgEdit(id = -1, dep = 0){
@@ -823,7 +852,7 @@ echo $this->Html->css('table.css');
 <div id="modaal-task-edit" class="modaal-task-edit" style="display:none; margin: 10px auto;">
 
     <h3 style="text-align: center" id="task-edit-title"></h3>
-    <p id="task-edit-department"></p>
+    <p id="task-edit-department-p"></p>
 
     <form id="task-edit-form" action="Edit" method="post">
         <input type="hidden" name="action" id="action-task" value="">
@@ -881,8 +910,12 @@ echo $this->Html->css('table.css');
                     foreach($users as $user){
                         if($user->id == $session->read('user')) continue;
 
+                        $s = '';
+                        if($user->role == 2) $s = "[社員]";
+                        if($user->role == 3) $s = "[MGR]";
+
                         echo '<input type="checkbox" class="checkbox" name="task-worker[]" value="'.$user->id.'" id="task-edit-worker-checkbox'.$user->id.'" />';
-                        echo '<label id="task-edit-worker-checkbox'.$user->id.'-label" for="task-edit-worker-checkbox'.$user->id.'" class="checkbox">'.$user->name.'</label>';
+                        echo '<label id="task-edit-worker-checkbox'.$user->id.'-label" for="task-edit-worker-checkbox'.$user->id.'" class="checkbox">'.$s.$user->name.'</label>';
                     }
 
                     ?>

@@ -57,7 +57,7 @@
                     // 成功時の処理
                     //var res = JSON.parse(result);
                     //alert(res[0].name);
-                    alert('部門 '+name+' を追加しました！');
+                    //alert('部門 '+name+' を追加しました！');
                     $('.modaal').modaal('close');
                     location.reload();
                 }).fail(function (jqXHR, status, error) {
