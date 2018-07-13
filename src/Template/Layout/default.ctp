@@ -79,7 +79,7 @@
     <?= $this->fetch('content') ?>
 </div>
 <footer>
-    <p style="text-align: center; font-size: 9px;"><a href="https://github.com/haru66/StoreTaskManager">StoreTaskManager ver 1.0.1</a></p>
+    <p style="text-align: center; font-size: 9px;"><a href="https://github.com/haru66/StoreTaskManager">StoreTaskManager ver 1.0.4</a></p>
 </footer>
 </body>
 </html>

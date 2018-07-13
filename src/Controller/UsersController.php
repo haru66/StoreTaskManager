@@ -75,7 +75,7 @@ class UsersController extends AppController
                     $this->set('errmsg', 'パスワードが正しくありません。');
                 }
             } else if($user['role'] == 1 && $user['require_password'] == false){
-                echo 'LOGIN SUCCESS';
+                //echo 'LOGIN SUCCESS';
 
                 $session->write('user', $userId);
                 $session->write('role', $user['role']);

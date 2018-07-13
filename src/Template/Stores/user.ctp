@@ -87,6 +87,16 @@
                 loading_content: 'Loading content, please wait.'
             });
 
+            $("input[name='role']").change(function(){
+                if($("input[name='role']:checked").val() == 1){
+                    $('#add-user-password-div').hide('fast');
+                    $('#add-user-department-div').show('fast');
+                } else {
+                    $('#add-user-password-div').show('fast');
+                    $('#add-user-department-div').hide('fast');
+                }
+            });
+
             $("#user-name").change(function(){
                 var id = $(this).val();
 
@@ -268,47 +278,57 @@
                 $('#error-add-password-invalid').hide();
                 $('#error-dep-empty').hide();
 
+                var addRole = $("input[name='role']:checked").val();
+
                 if(n == ''){
                     $('#error-user-name-empty').show();
                     err = true;
                 }
-                if($('#add-user-password').val() == ''){
-                    $('#error-add-password-empty').show();
-                    err = true;
-                }
-                else if($('#add-user-password').val().length < 4){
-                    $('#error-add-password-length').show();
-                    err = true;
-                }
-                if($('#add-user-password2').val() == ''){
-                    $('#error-add-password2-empty').show();
-                    err = true;
-                }
-                else if($('#add-user-password').val() != $('#add-user-password2').val()){
-                    $('#error-add-password-invalid').show();
-                    err = true;
+                if(addRole == 2) {
+                    if ($('#add-user-password').val() == '') {
+                        $('#error-add-password-empty').show();
+                        err = true;
+                    }
+                    else if ($('#add-user-password').val().length < 4) {
+                        $('#error-add-password-length').show();
+                        err = true;
+                    }
+                    if ($('#add-user-password2').val() == '') {
+                        $('#error-add-password2-empty').show();
+                        err = true;
+                    }
+                    else if ($('#add-user-password').val() != $('#add-user-password2').val()) {
+                        $('#error-add-password-invalid').show();
+                        err = true;
+                    }
                 }
                 var check_count = $('#department-list :checked').length;
                 if(check_count == 0){
-                    $('#error-dep-empty').show();
-                    err = true;
+                    if(addRole == 1) {
+                        $('#error-dep-empty').show();
+                        err = true;
+                    } else {
+
+                    }
                 }
                 if(err) return false;
 
                 if(confirm('入力の内容でスタッフを追加します。よろしいですか？')) {
+                    if(addRole == 2){
+                        $("[name='departments[]']").prop('checked', 'checked');
+                    }
                     var checked = [];
                     $('[name="departments[]"]:checked').each(function(){
                         checked.push($(this).val());
                     });
-                    var pw = $('#add-user-password').val();
-                    var role = $('input[name="role"]:checked').val();
+                    var pw = addRole == 2 ? $('#add-user-password').val() : 'password';
                     var data = {
                         action : 'add',
                         name : n,
-                        role: role,
+                        role: addRole,
                         password: pw,
                         department: checked,
-                        'require_password': 1
+                        'require_password': addRole == 2 ? 1 : 0
                     };
 
                     $.ajax({
@@ -567,16 +587,6 @@ foreach($users as $user) {
                 <span id="error-user-name-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
                 <input type="text" name="name" id="add-user-name">
 
-                <label for="add-user-password">パスワード：</label>
-                <span id="error-add-password-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
-                <span id="error-add-password-length" style="display:none; color:red; font-size: 13px;">パスワードは4文字以上必要です</span>
-                <input type="password" name="password" id="add-user-password">
-
-                <label for="add-user-password2">パスワード(再入力)：</label>
-                <span id="error-add-password2-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
-                <span id="error-add-password-invalid" style="display:none; color:red; font-size: 13px;">パスワードが一致しません</span>
-                <input type="password" id="add-user-password2">
-
                 <div id="add-user-role-div" class="form-group">
                     <label for="add-user-role">権限：</label>
                     <input type="radio" name="role" value="1" checked id="radio01" />
@@ -586,7 +596,22 @@ foreach($users as $user) {
                     <label for="radio02" class="radio">社員</label>
                 </div>
 
-                <div class="form-control" style="margin-top: 20px;">
+                <div id="add-user-password-div" style="display:none">
+                    <label for="add-user-password">パスワード：</label>
+                    <span id="error-add-password-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
+                    <span id="error-add-password-length" style="display:none; color:red; font-size: 13px;">パスワードは4文字以上必要です</span>
+                    <input type="password" name="password" id="add-user-password">
+
+
+                    <label for="add-user-password2">パスワード(再入力)：</label>
+                    <span id="error-add-password2-empty" style="display:none; color:red; font-size: 13px;">入力してください</span>
+                    <span id="error-add-password-invalid" style="display:none; color:red; font-size: 13px;">パスワードが一致しません</span>
+                    <input type="password" id="add-user-password2">
+                </div>
+
+
+
+                <div id="add-user-department-div" class="form-control" style="margin-top: 20px;">
 
                     <div class="" style="padding-bottom: 10px;padding-top: 8px;">
                     <label for="department-list">部門担当：</label><span id="error-dep-empty" style="display:none; color:red; font-size: 13px;">最低1部門は選択してください</span>

@@ -46,6 +46,9 @@
         ?>
 
 
+
+
+
         $(function(){
 
             $('.modaal-login-form').modaal({
@@ -84,6 +87,8 @@
                 }
             });
 
+            $("#user-id").trigger("change");
+
         });
 
         function setFocus(sel){
@@ -92,6 +97,9 @@
                 $(sel).focus();//入力欄にフォーカス
             },200);
         }
+
+
+
 
 
     </script>

@@ -97,6 +97,7 @@
 
                     if(result){
                         $('#dep-'+id+'-draw').text(result);
+                        $('#dep-'+id).attr('dep-name', result);
                     }
                 }).fail(function (jqXHR, status, error) {
                     // 失敗時の処理

@@ -399,7 +399,7 @@ class StoresController extends AppController
             $this->autoRender = false;
 
             echo '{"res":"error","message":"このページにアクセスするための権限がありません。"}';
-            return;
+            exit;
         }
 
         $storeId = $session->read('store');
@@ -476,10 +476,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit;
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit;
                 }
             } else if($receive['action'] == 'add'){
                 $user = $this->Users->newEntity();
@@ -488,16 +488,16 @@ class StoresController extends AppController
                 $user->role = $receive['role'];
                 $user->require_password = $receive['require_password'];
                 $user->department = implode(',', $receive['department']);
-                $user->password = sha1('password');
+                $user->password = sha1($receive['password']);
                 $user->deleted = 0;
                 $user->store = $session->read('store');
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit;
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit;
                 }
             } else if($receive['action'] == 'delete-user') {
                 $user = $this->Users->get($receive['id']);
@@ -507,10 +507,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit;
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit;
                 }
             } else if($receive['action'] == 'edit-name') {
                 $user = $this->Users->get($receive['id']);
@@ -519,10 +519,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit;
                 } else {
                     echo '{"res":"error", "message":""}';
-                    return;
+                    exit;
                 }
             } else if($receive['action'] == 'edit-password') {
                 $user = $this->Users->get($receive['id']);
@@ -531,10 +531,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit();
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit();
                 }
             } else if($receive['action'] == 'reset-password') {
                 $user = $this->Users->get($receive['id']);
@@ -543,10 +543,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit();
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit();
                 }
             } else if($receive['action'] == 'edit-department') {
                 $user = $this->Users->get($receive['id']);
@@ -555,10 +555,10 @@ class StoresController extends AppController
 
                 if($this->Users->save($user)){
                     echo '{"res":"ok"}';
-                    return;
+                    exit();
                 } else {
                     echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                    return;
+                    exit();
                 }
             }
 
@@ -695,7 +695,7 @@ class StoresController extends AppController
             $this->autoRender = false;
 
             echo '{"res":"error","message":"このページにアクセスするための権限がありません。"}';
-            return;
+            exit;
         }
         $this->set('errmsg', '');
 
@@ -746,7 +746,7 @@ class StoresController extends AppController
             $this->autoRender = false;
 
             echo '{"res":"error","message":"このページにアクセスするための権限がありません。a"}';
-            return;
+            exit;
         }
 
         $storeId = $session->read('store');
@@ -834,7 +834,7 @@ class StoresController extends AppController
             $this->autoRender = false;
 
             echo '{"res":"error","message":"このページにアクセスするための権限がありません。"}';
-            return;
+            exit;
         }
 
         $this->set('storeParentName', $this->Stores->find('all')->where(['id' => 1])->toArray()[0]['name']);
@@ -862,7 +862,7 @@ class StoresController extends AppController
             $this->autoRender = false;
 
             echo '{"res":"error","message":"このページにアクセスするための権限がありません。"}';
-            return;
+            exit;
         }
 
         $this->set('done', false);
@@ -897,7 +897,7 @@ class StoresController extends AppController
                 $this->set('done', true);
             } else {
                 echo '{"res":"error", "message":"データベースにデータを保存できませんでした。"}';
-                return;
+                exit;
             }
         }
     }

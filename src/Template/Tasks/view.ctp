@@ -510,13 +510,8 @@ echo $this->Html->css('table.css');
 
                 var workerList = '';
                 for(var i = 0; i < worker.length; i++){
-                    //console.log(worker[i]);
-                    var s = "";
                     alert(userlist[worker[i]]['role']);
-                    if(userlist[worker[i]]['role'] >= 2){
-                        s = "background-color: red;";
-                    }
-                    workerList =  workerList + "<span style='margin-right: 16px; display: inline-block; "+s+"'>" + userlist[worker[i]]['name'] + "</span>";
+                    workerList =  workerList + "<span style='margin-right: 16px; display: inline-block;'>" + userlist[worker[i]]['name'] + "</span>";
                 }
 
                 for(var i = 0; i < Object.keys(userlist).length; i++){
