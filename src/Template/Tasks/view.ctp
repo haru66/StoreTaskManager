@@ -360,14 +360,18 @@ echo $this->Html->css('table.css');
                 $('#task-edit-worker-checkbox' + userId).removeAttr('onclick');
             }
 
-            if(userlist[userId]['role'] != 3) {
+            if(userlist[userId]['role'] == 1) {
                 for(var i = 0; i < Object.keys(userlist).length; i++){
                     //alert(useridlist[i]);
-                    if(userlist[useridlist[i]]['role'] == 3) {
+                    if(userlist[useridlist[i]]['role'] == 2 || userlist[useridlist[i]]['role'] == 3) {
                         $('#task-edit-worker-checkbox' + useridlist[i] + "-label").addClass('hide').hide();
                     }
                 }
-            } else if(userlist[userId]['role'] == 3) {
+            }/* else if(userlist[userId]['role'] == 2) {
+                if(userlist[useridlist[i]]['role'] == 3) {
+                    $('#task-edit-worker-checkbox' + useridlist[i] + "-label").addClass('hide').hide();
+                }
+            }*/else if(userlist[userId]['role'] == 3) {
                 for(var i = 0; i < Object.keys(userlist).length; i++){
                     $('#task-edit-worker-checkbox' + useridlist[i] + "-label").addClass('show').show();
                 }
@@ -396,7 +400,7 @@ echo $this->Html->css('table.css');
             $('#task-edit-department-' + dep).attr('selected', 'selected');
 
             $('#task-edit-delete').hide();
-            $('#task-edit-situation-div').hide();
+            $('#task-edit-situation-div').show();
 
             $('#task-edit-success').hide();
 
@@ -431,7 +435,7 @@ echo $this->Html->css('table.css');
 
 
             $('[id="task-edit-caption"]').val(task.attr('caption'));
-            $('[id="task-edit-detail"]').text(br2nl(task.attr('detail')));
+            $('[id="task-edit-detail"]').text(brdel(task.attr('detail')));
 
             $('input[name=task-priority]').val([task.attr('priority')]);
 
@@ -510,7 +514,7 @@ echo $this->Html->css('table.css');
 
                 var workerList = '';
                 for(var i = 0; i < worker.length; i++){
-                    alert(userlist[worker[i]]['role']);
+                    //alert(userlist[worker[i]]['role']);
                     workerList =  workerList + "<span style='margin-right: 16px; display: inline-block;'>" + userlist[worker[i]]['name'] + "</span>";
                 }
 
@@ -976,7 +980,7 @@ echo $this->Html->css('table.css');
         <button type="button" class="btn btn-md" style="width:100px;" onclick="closeModal()">閉じる</button>
 
         <button type="submit" id="task-edit-submit" class="btn btn-md btn-primary" style="width:100px;"></button>
-            <button type="submit" id="task-edit-success" class="btn btn-md btn-success" style="width:100px;" onclick="">完 了</button>
+            <button type="submit" id="task-edit-success" class="btn btn-md btn-success" style="width:100px;" onclick="">作業完了</button>
             <button type="submit" id="task-edit-delete" class="btn btn-md btn-danger" style="width:100px;">削除</button>
             </div>
 

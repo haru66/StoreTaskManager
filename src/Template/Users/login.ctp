@@ -113,6 +113,9 @@
     <p id="error-msg" style="display: <?= empty($errmsg) ? 'none;' : 'block;'; ?> color: red;"><?= $errmsg ?></p>
 
     <form id="login-form" action="Login" method="post">
+        <input type="text" name="dummy_text"  disabled="disabled" style="width:2px;height:2px;position:absolute;opacity:0"/>
+        <input type="password" name="dummy_password" disabled="disabled" style="width:2px;height:2px;position:absolute;opacity:0"/>
+
         <div class="form-group">
 
             <!--label for="user-id">ユーザー:</label-->

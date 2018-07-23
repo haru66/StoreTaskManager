@@ -147,7 +147,7 @@ class TasksController extends AppController {
         $this->set('tasksTodayCompleted', $tasksTodayCompleted);
 
         //$usersTmp = $this->Users->find('all')->where(['deleted' => '0', 'OR' => [[ 'store' => $storeId], ['role' => '3']]]);
-        $usersTmp = $this->Users->find('all')->where(['OR' => [[ 'store' => $storeId], ['role' => '3' , 'deleted' => '0']]]);
+        $usersTmp = $this->Users->find('all')->where(['deleted' => '0', 'OR' => [[ 'store' => $storeId], ['role <=' => '3']]]);
         //$usersTmp = $this->Users->find('all')->where(['OR' => ['store' => $storeId], ['role' => '3']]);
         $users = array();
         foreach ($usersTmp as $userTmp) {
@@ -186,6 +186,7 @@ class TasksController extends AppController {
                 $due = str_replace('月', '-', $due);
                 $due = str_replace('日', '', $due);
                 $newTask->due_date = $due == '' ? NULL : $due;
+                $newTask->situation = $receive['task-situation'];
                 $newTask->author = $session->read('user');
                 $newTask->priority = $receive['task-priority'];
                 $newTask->worker = $workers;
